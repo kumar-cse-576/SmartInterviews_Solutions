@@ -17,16 +17,16 @@ node* insert(node* r,int x){
     return r;
 }
 
-int f(node*r,map<int,int>&dp){
+int f(node*r,map<int,int>&mp){
     if(r==nullptr)return 0;
-    if(r->d<0)return f(r->r,dp);
+    if(r->d<0)return f(r->r,mp);
     if(r->l==nullptr&&r->r==nullptr)return max(r->d,0);
-    if(dp.find(r->d)!=dp.end())return dp[r->d];
-    int ans=f(r->l,dp)+f(r->r,dp);
+    if(mp.find(r->d)!=mp.end())return mp[r->d];
+    int ans=f(r->l,mp)+f(r->r,mp);
     int pk=r->d;
-    if(r->l!=nullptr)pk+=f(r->l->l,dp)+f(r->l->r,dp);
-    if(r->r!=nullptr)pk+=f(r->r->l,dp)+f(r->r->r,dp);
-    return dp[r->d]=max(pk,ans);
+    if(r->l!=nullptr)pk+=f(r->l->l,mp)+f(r->l->r,mp);
+    if(r->r!=nullptr)pk+=f(r->r->l,mp)+f(r->r->r,mp);
+    return mp[r->d]=max(pk,ans);
 }
 
 
@@ -50,8 +50,8 @@ int main() {
             cout<<0<<endl;
             continue;
         }
-        map<int,int> dp;
-        cout<<f(r,dp)<<endl;
+        map<int,int> mp;
+        cout<<f(r,mp)<<endl;
     }
     return 0;
 }
